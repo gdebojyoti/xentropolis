@@ -35,6 +35,10 @@ CRenderer.prototype = {
         this.m_cSampleMat = new THREE.MeshBasicMaterial({color: 0xee5522});
         this.m_cSampleMesh = new THREE.Mesh(this.m_cSampleGeom, this.m_cSampleMat);
         this.m_cScene.add(this.m_cSampleMesh);
+
+        // first person controls
+        // this.m_cControls = new THREE.PointerLockControls( this.m_cCamera );
+		// this.m_cScene.add( this.m_cControls.getObject() );
     },
     displayScene: function() {
         this.m_cRenderer.clear();
