@@ -1,0 +1,2 @@
+1. Scene not rendering
+~ renderer size not being set & updated

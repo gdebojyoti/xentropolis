@@ -15,15 +15,16 @@ CRenderer.prototype = {
 
         // initialize camera
         this.m_cCamera = new THREE.PerspectiveCamera(this.m_rFOV, g_cSettings.m_nWidth/ g_cSettings.m_nHeight, 5, 10000);
-        this.m_cCamera.position.set(0,10,0);
+        this.m_cCamera.position.set(0,10,10);
+        // this.m_cCamera.lookAt(this.m_cScene.position);
+        this.m_cCamera.rotation.x = - 45 * Math.PI / 180;
         this.m_cScene.add(this.m_cCamera);
 
         // initialize renderer
-        this.m_cRenderer = new THREE.WebGLRenderer({ antialias: true });
-        this.m_cRenderer.setSize(g_cSettings.width, g_cSettings.height);
-        $("#playground").append(this.m_cRenderer);
+        this.m_cRenderer = new THREE.WebGLRenderer({ canvas: g_htmlCanvas, alpha: true });
+        this.m_cRenderer.setSize(g_cSettings.m_nWidth, g_cSettings.m_nHeight);
 
-        // this.m_cRenderer.setClearColorHex(0x333F47, 1);
+        // this.m_cRenderer.setClearColor(0xFF2299, 1);
 
         // add ambient light to scene
         var light = new THREE.AmbientLight(0xFFFFFF);
@@ -34,12 +35,14 @@ CRenderer.prototype = {
         this.m_cSampleMat = new THREE.MeshBasicMaterial({color: 0xee5522});
         this.m_cSampleMesh = new THREE.Mesh(this.m_cSampleGeom, this.m_cSampleMat);
         this.m_cScene.add(this.m_cSampleMesh);
-
-        // initialize orbit controls
-        // this.m_cControls = new THREE.OrbitControls(this.m_cCamera, this.m_cRenderer.domElement);
     },
-    render: function() {
+    displayScene: function() {
+        this.m_cRenderer.clear();
         this.m_cRenderer.render(this.m_cScene, this.m_cCamera);
-        // this.m_cControls.update();
+    },
+    updateScene: function() {
+        this.m_cCamera.aspect = g_cSettings.m_nWidth/ g_cSettings.m_nHeight;
+        this.m_cCamera.updateProjectionMatrix();
+        this.m_cRenderer.setSize(g_cSettings.m_nWidth, g_cSettings.m_nHeight);
     }
 }
