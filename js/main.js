@@ -15,4 +15,18 @@ $(function() {
     g_cRenderer.render();
 
     registerEvents();
+    onresize();
+
+    runProcessLoop();
 })
+
+function runProcessLoop() {
+
+    // Read more about requestAnimationFrame at http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    requestAnimationFrame(runProcessLoop);
+
+    // Render the scene.
+    g_cRenderer.render();
+    // controls.update();
+
+}

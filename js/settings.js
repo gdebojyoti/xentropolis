@@ -6,10 +6,8 @@ function CSettings() {
 }
 
 CSettings.prototype = {
-    init: init
-}
-
-function init() {
-    this.m_nWidth = window.innerWidth;
-    this.m_nHeight = window.innerHeight;
+    init: function() {
+        this.m_nWidth = window.innerWidth;
+        this.m_nHeight = window.innerHeight;
+    }
 }
