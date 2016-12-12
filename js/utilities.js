@@ -64,7 +64,7 @@ function onKeyDown(event) {
             player.movement.canJump = false;
             break;
     }
-};
+}
 
 function onKeyUp(event) {
     switch( event.keyCode ) {
@@ -88,4 +88,4 @@ function onKeyUp(event) {
             player.movement.right = false;
             break;
     }
-};
+}

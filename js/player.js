@@ -18,4 +18,4 @@ CPlayer.prototype = {
         this.speed = new THREE.Vector3();
         this.directionRay = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
     }
-}
+};

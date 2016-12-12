@@ -95,4 +95,4 @@ CRenderer.prototype = {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(settings.width, settings.height);
     }
-}
+};
