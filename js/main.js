@@ -3,12 +3,18 @@
 var g_htmlCanvas = null;
 var g_cRenderer = null;
 var g_cSettings = null;
+var g_cPlayer = null;
+
+var prevTime, currTime;
 
 $(function() {
     g_htmlCanvas = document.getElementById("playground");
 
     g_cSettings = new CSettings();
     g_cSettings.init();
+
+    g_cPlayer = new CPlayer();
+    g_cPlayer.init();
 
     g_cRenderer = new CRenderer();
     g_cRenderer.init();
@@ -28,8 +34,13 @@ function renderLoop() {
     // Read more about requestAnimationFrame at http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
     requestAnimationFrame(renderLoop);
 
-    // Render the scene.
-    g_cRenderer.displayScene();
+    var time = performance.now();
+    var deltaTime = ( time - prevTime ) / 1000;
+
+    // Render the scene
+    g_cRenderer.displayScene(deltaTime);
+
+    prevTime = time;
 }
 
 function lockPointer() {

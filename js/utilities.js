@@ -41,27 +41,27 @@ function onKeyDown(event) {
     switch ( event.keyCode ) {
         case 38: // up
         case 87: // w
-            moveForward = true;
+            g_cPlayer.m_cMovement.forward = true;
             break;
 
         case 37: // left
         case 65: // a
-            moveLeft = true;
+            g_cPlayer.m_cMovement.left = true;
             break;
 
         case 40: // down
         case 83: // s
-            moveBackward = true;
+            g_cPlayer.m_cMovement.backward = true;
             break;
 
         case 39: // right
         case 68: // d
-            moveRight = true;
+            g_cPlayer.m_cMovement.right = true;
             break;
 
         case 32: // space
-            if (canJump === true) velocity.y += 350;
-            canJump = false;
+            if (g_cPlayer.m_cMovement.canJump === true) g_cPlayer.m_cSpeed.y += 350;
+            g_cPlayer.m_cMovement.canJump = false;
             break;
     }
 };
@@ -70,22 +70,22 @@ function onKeyUp(event) {
     switch( event.keyCode ) {
         case 38: // up
         case 87: // w
-            moveForward = false;
+            g_cPlayer.m_cMovement.forward = false;
             break;
 
         case 37: // left
         case 65: // a
-            moveLeft = false;
+            g_cPlayer.m_cMovement.left = false;
             break;
 
         case 40: // down
         case 83: // s
-            moveBackward = false;
+            g_cPlayer.m_cMovement.backward = false;
             break;
 
         case 39: // right
         case 68: // d
-            moveRight = false;
+            g_cPlayer.m_cMovement.right = false;
             break;
     }
 };
