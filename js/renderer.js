@@ -5,6 +5,7 @@ function CRenderer() {
     this.m_cCamera = null;
     this.m_cRenderer = null;
     this.m_cControls = null;
+    this.m_cPlayer = null;
     this.m_rFOV = 60;
 }
 
@@ -12,13 +13,10 @@ CRenderer.prototype = {
     init: function() {
         // initialize scene
         this.m_cScene = new THREE.Scene();
+        // this.m_cScene.fog = new THREE.Fog( 0x555555, 0, 200 );
 
         // initialize camera
         this.m_cCamera = new THREE.PerspectiveCamera(this.m_rFOV, g_cSettings.m_nWidth/ g_cSettings.m_nHeight, 5, 10000);
-        this.m_cCamera.position.set(0,10,10);
-        // this.m_cCamera.lookAt(this.m_cScene.position);
-        this.m_cCamera.rotation.x = - 45 * Math.PI / 180;
-        this.m_cScene.add(this.m_cCamera);
 
         // initialize renderer
         this.m_cRenderer = new THREE.WebGLRenderer({ canvas: g_htmlCanvas, alpha: true });
@@ -30,15 +28,25 @@ CRenderer.prototype = {
         var light = new THREE.AmbientLight(0xFFFFFF);
         this.m_cScene.add(light);
 
-        // create sample mesh
-        this.m_cSampleGeom = new THREE.BoxGeometry(5,5,5);
-        this.m_cSampleMat = new THREE.MeshBasicMaterial({color: 0xee5522});
-        this.m_cSampleMesh = new THREE.Mesh(this.m_cSampleGeom, this.m_cSampleMat);
-        this.m_cScene.add(this.m_cSampleMesh);
+        // sample plane
+        var plane = new THREE.Mesh(new THREE.PlaneGeometry(200,200,5), new THREE.MeshBasicMaterial({color: 0xee5522}));
+        plane.position.y = 0;
+        plane.rotation.x = - 90 * Math.PI / 180;
+        this.m_cScene.add(plane);
+
+        // sample cube
+        var cube = new THREE.Mesh(new THREE.BoxGeometry(5,5,5), new THREE.MeshBasicMaterial({
+                color: 0xff0033,
+                wireframe: true
+            }));
+        cube.position.y = 0;
+        cube.position.z = -50;
+        this.m_cScene.add(cube);
 
         // first person controls
-        // this.m_cControls = new THREE.PointerLockControls( this.m_cCamera );
-		// this.m_cScene.add( this.m_cControls.getObject() );
+        this.m_cControls = new THREE.PointerLockControls( this.m_cCamera );
+        this.m_cPlayer = this.m_cControls.getObject();
+		this.m_cScene.add(this.m_cPlayer);
     },
     displayScene: function() {
         this.m_cRenderer.clear();

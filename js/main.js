@@ -16,6 +16,10 @@ $(function() {
     registerEvents();
     onresize();
 
+    $("#button").on("click", function() {
+        lockPointer();
+    });
+
     renderLoop();
 })
 
@@ -26,4 +30,32 @@ function renderLoop() {
 
     // Render the scene.
     g_cRenderer.displayScene();
+}
+
+function lockPointer() {
+    var isPointerLockAvailable = 'pointerLockElement' in document ||
+            'mozPointerLockElement' in document ||
+            'webkitPointerLockElement' in document;
+
+    var element = document.body;
+
+    if(isPointerLockAvailable) {
+
+        element.requestPointerLock = element.requestPointerLock ||
+			    element.mozRequestPointerLock ||
+			    element.webkitRequestPointerLock;
+
+        // Ask the browser to lock the pointer
+        element.requestPointerLock();
+
+        g_cRenderer.m_cControls.enabled = true;
+
+        // Ask the browser to release the pointer
+        // document.exitPointerLock = document.exitPointerLock ||
+        // 			   document.mozExitPointerLock ||
+        // 			   document.webkitExitPointerLock;
+        // document.exitPointerLock();
+    } else {
+        alert("Your browser doesn't seem to support Pointer Lock API");
+    }
 }
