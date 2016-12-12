@@ -1,38 +1,38 @@
 "use strict";
 
 function CRenderer() {
-    this.m_cScene = null;
-    this.m_cCamera = null;
-    this.m_cRenderer = null;
-    this.m_cControls = null;
-    this.m_cPlayer = null;
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.controls = null;
+    this.player = null;
     this.m_rFOV = 60;
 }
 
 CRenderer.prototype = {
     init: function() {
         // initialize scene
-        this.m_cScene = new THREE.Scene();
-        // this.m_cScene.fog = new THREE.Fog( 0x555555, 0, 200 );
+        this.scene = new THREE.Scene();
+        // this.scene.fog = new THREE.Fog( 0x555555, 0, 200 );
 
         // initialize camera
-        this.m_cCamera = new THREE.PerspectiveCamera(this.m_rFOV, g_cSettings.m_nWidth/ g_cSettings.m_nHeight, 5, 10000);
+        this.camera = new THREE.PerspectiveCamera(this.m_rFOV, settings.width/ settings.height, 5, 10000);
 
         // initialize renderer
-        this.m_cRenderer = new THREE.WebGLRenderer({ canvas: g_htmlCanvas, alpha: true });
-        this.m_cRenderer.setSize(g_cSettings.m_nWidth, g_cSettings.m_nHeight);
+        this.renderer = new THREE.WebGLRenderer({ canvas: htmlCanvas, alpha: true });
+        this.renderer.setSize(settings.width, settings.height);
 
-        // this.m_cRenderer.setClearColor(0xFF2299, 1);
+        // this.renderer.setClearColor(0xFF2299, 1);
 
         // add ambient light to scene
         var light = new THREE.AmbientLight(0xFFFFFF);
-        this.m_cScene.add(light);
+        this.scene.add(light);
 
         // sample plane
         var plane = new THREE.Mesh(new THREE.PlaneGeometry(200,200,5), new THREE.MeshBasicMaterial({color: 0xee5522}));
         plane.position.y = 0;
         plane.rotation.x = - 90 * Math.PI / 180;
-        this.m_cScene.add(plane);
+        this.scene.add(plane);
 
         // sample cube
         var cube = new THREE.Mesh(new THREE.BoxGeometry(5,5,5), new THREE.MeshBasicMaterial({
@@ -41,58 +41,58 @@ CRenderer.prototype = {
             }));
         cube.position.y = 0;
         cube.position.z = -50;
-        this.m_cScene.add(cube);
+        this.scene.add(cube);
 
         // first person controls
-        this.m_cControls = new THREE.PointerLockControls( this.m_cCamera );
-        g_cPlayer.m_cPlayer = this.m_cControls.getObject();
-		this.m_cScene.add(g_cPlayer.m_cPlayer);
+        this.controls = new THREE.PointerLockControls( this.camera );
+        player.player = this.controls.getObject();
+		this.scene.add(player.player);
     },
     displayScene: function(deltaTime) {
-        this.m_cRenderer.clear();
-        this.m_cRenderer.render(this.m_cScene, this.m_cCamera);
+        this.renderer.clear();
+        this.renderer.render(this.scene, this.camera);
 
-        // g_cPlayer.m_cDirectionRay.ray.origin.copy( g_cPlayer.m_cPlayer.position );
-		// g_cPlayer.m_cDirectionRay.ray.origin.y -= 10;
+        // player.directionRay.ray.origin.copy( player.player.position );
+		// player.directionRay.ray.origin.y -= 10;
 
-        // var intersections = g_cPlayer.m_cDirectionRay.intersectObjects( objects );
+        // var intersections = player.directionRay.intersectObjects( objects );
 		// var isOnObject = intersections.length > 0;
 
         if(!isNaN(deltaTime)) {
-            g_cPlayer.m_cSpeed.x -= g_cPlayer.m_cSpeed.x * 10.0 * deltaTime;
-            g_cPlayer.m_cSpeed.z -= g_cPlayer.m_cSpeed.z * 10.0 * deltaTime;
+            player.speed.x -= player.speed.x * 10.0 * deltaTime;
+            player.speed.z -= player.speed.z * 10.0 * deltaTime;
 
-            // g_cPlayer.m_cSpeed.y -= 9.8 * 100.0 * deltaTime; // 100.0 = mass
+            // player.speed.y -= 9.8 * 100.0 * deltaTime; // 100.0 = mass
 
-            if ( g_cPlayer.m_cMovement.forward ) g_cPlayer.m_cSpeed.z -= 400.0 * deltaTime;
-            if ( g_cPlayer.m_cMovement.backward ) g_cPlayer.m_cSpeed.z += 400.0 * deltaTime;
+            if ( player.movement.forward ) player.speed.z -= 400.0 * deltaTime;
+            if ( player.movement.backward ) player.speed.z += 400.0 * deltaTime;
 
-            if ( g_cPlayer.m_cMovement.left ) g_cPlayer.m_cSpeed.x -= 400.0 * deltaTime;
-            if ( g_cPlayer.m_cMovement.right ) g_cPlayer.m_cSpeed.x += 400.0 * deltaTime;
+            if ( player.movement.left ) player.speed.x -= 400.0 * deltaTime;
+            if ( player.movement.right ) player.speed.x += 400.0 * deltaTime;
 
             // if ( isOnObject === true ) {
-            //     g_cPlayer.m_cSpeed.y = Math.max( 0, g_cPlayer.m_cSpeed.y );
+            //     player.speed.y = Math.max( 0, player.speed.y );
             //
             //     canJump = true;
             // }
 
-            g_cPlayer.m_cPlayer.translateX( g_cPlayer.m_cSpeed.x * deltaTime );
-            // g_cPlayer.m_cPlayer.translateY( g_cPlayer.m_cSpeed.y * deltaTime );
-            g_cPlayer.m_cPlayer.translateZ( g_cPlayer.m_cSpeed.z * deltaTime );
+            player.player.translateX( player.speed.x * deltaTime );
+            // player.player.translateY( player.speed.y * deltaTime );
+            player.player.translateZ( player.speed.z * deltaTime );
         }
 
-        if ( g_cPlayer.m_cPlayer.position.y < 10 ) {
+        if ( player.player.position.y < 10 ) {
 
-            g_cPlayer.m_cSpeed.y = 0;
-            g_cPlayer.m_cPlayer.position.y = 10;
+            player.speed.y = 0;
+            player.player.position.y = 10;
 
-            g_cPlayer.m_cMovement.canJump = true;
+            player.movement.canJump = true;
 
         }
     },
     updateScene: function() {
-        this.m_cCamera.aspect = g_cSettings.m_nWidth/ g_cSettings.m_nHeight;
-        this.m_cCamera.updateProjectionMatrix();
-        this.m_cRenderer.setSize(g_cSettings.m_nWidth, g_cSettings.m_nHeight);
+        this.camera.aspect = settings.width/ settings.height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(settings.width, settings.height);
     }
 }

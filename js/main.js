@@ -1,23 +1,23 @@
 "use strict";
 
-var g_htmlCanvas = null;
-var g_cRenderer = null;
-var g_cSettings = null;
-var g_cPlayer = null;
+var htmlCanvas = null;
+var renderer = null;
+var settings = null;
+var player = null;
 
 var prevTime, currTime;
 
 $(function() {
-    g_htmlCanvas = document.getElementById("playground");
+    htmlCanvas = document.getElementById("playground");
 
-    g_cSettings = new CSettings();
-    g_cSettings.init();
+    settings = new CSettings();
+    settings.init();
 
-    g_cPlayer = new CPlayer();
-    g_cPlayer.init();
+    player = new CPlayer();
+    player.init();
 
-    g_cRenderer = new CRenderer();
-    g_cRenderer.init();
+    renderer = new CRenderer();
+    renderer.init();
 
     registerEvents();
     onresize();
@@ -38,7 +38,7 @@ function renderLoop() {
     var deltaTime = ( time - prevTime ) / 1000;
 
     // Render the scene
-    g_cRenderer.displayScene(deltaTime);
+    renderer.displayScene(deltaTime);
 
     prevTime = time;
 }
@@ -59,7 +59,7 @@ function lockPointer() {
         // Ask the browser to lock the pointer
         element.requestPointerLock();
 
-        g_cRenderer.m_cControls.enabled = true;
+        renderer.controls.enabled = true;
 
         // Ask the browser to release the pointer
         // document.exitPointerLock = document.exitPointerLock ||
