@@ -22,9 +22,14 @@ $(function() {
     registerEvents();
     onresize();
 
-    $("#button").on("click", function() {
+    $("#button").on("click", function(e) {
         lockPointer();
+        e.stopPropagation();
     });
+
+    $("body").on("click", function() {
+        player.createBlock();
+    })
 
     renderLoop();
 })

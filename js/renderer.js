@@ -17,7 +17,7 @@ CRenderer.prototype = {
         // this.scene.fog = new THREE.Fog( 0x555555, 0, 200 );
 
         // initialize camera
-        this.camera = new THREE.PerspectiveCamera(this.m_rFOV, settings.width/ settings.height, 5, 10000);
+        this.camera = new THREE.PerspectiveCamera(this.m_rFOV, settings.width/ settings.height, 0.1, 10000);
 
         // initialize renderer
         this.renderer = new THREE.WebGLRenderer({ canvas: htmlCanvas, alpha: true });
@@ -37,7 +37,7 @@ CRenderer.prototype = {
         this.renderer.clear();
         this.renderer.render(this.scene, this.camera);
 
-        player.looper();
+        player.displayView();
 
         // player.directionRay.ray.origin.copy( player.player.position );
 		// player.directionRay.ray.origin.y -= 10;
