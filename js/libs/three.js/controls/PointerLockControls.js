@@ -56,6 +56,8 @@ THREE.PointerLockControls = function ( camera ) {
 
 		return function( v ) {
 
+			if(typeof v === "undefined") v = new THREE.Vector3( 0, 0, -1 );
+
 			rotation.set( pitchObject.rotation.x, yawObject.rotation.y, 0 );
 
 			v.copy( direction ).applyEuler( rotation );

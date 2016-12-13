@@ -6,6 +6,7 @@ function CRenderer() {
     this.renderer = null;
     this.controls = null;
     this.player = null;
+    this.world = null;
     this.m_rFOV = 60;
 }
 
@@ -22,35 +23,21 @@ CRenderer.prototype = {
         this.renderer = new THREE.WebGLRenderer({ canvas: htmlCanvas, alpha: true });
         this.renderer.setSize(settings.width, settings.height);
 
-        // this.renderer.setClearColor(0xFF2299, 1);
-
         // add ambient light to scene
         var light = new THREE.AmbientLight(0xFFFFFF);
         this.scene.add(light);
 
-        // sample plane
-        var plane = new THREE.Mesh(new THREE.PlaneGeometry(200,200,5), new THREE.MeshBasicMaterial({color: 0xee5522}));
-        plane.position.y = 0;
-        plane.rotation.x = - 90 * Math.PI / 180;
-        this.scene.add(plane);
+        this.world = new World();
+        this.world.init();
 
-        // sample cube
-        var cube = new THREE.Mesh(new THREE.BoxGeometry(5,5,5), new THREE.MeshBasicMaterial({
-                color: 0xff0033,
-                wireframe: true
-            }));
-        cube.position.y = 0;
-        cube.position.z = -50;
-        this.scene.add(cube);
-
-        // first person controls
-        this.controls = new THREE.PointerLockControls( this.camera );
-        player.player = this.controls.getObject();
-		this.scene.add(player.player);
+        player.setup();
+        this.scene.add(player.player);
     },
     displayScene: function(deltaTime) {
         this.renderer.clear();
         this.renderer.render(this.scene, this.camera);
+
+        player.looper();
 
         // player.directionRay.ray.origin.copy( player.player.position );
 		// player.directionRay.ray.origin.y -= 10;

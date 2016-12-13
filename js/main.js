@@ -59,7 +59,7 @@ function lockPointer() {
         // Ask the browser to lock the pointer
         element.requestPointerLock();
 
-        renderer.controls.enabled = true;
+        player.controls.enabled = true;
 
         // Ask the browser to release the pointer
         // document.exitPointerLock = document.exitPointerLock ||

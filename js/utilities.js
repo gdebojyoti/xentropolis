@@ -30,10 +30,10 @@ function onpointerlockchange() {
     var element = document.body;
 
     if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
-        renderer.controls.enabled = true;
+        player.controls.enabled = true;
     }
     else {
-        renderer.controls.enabled = false;
+        player.controls.enabled = false;
     }
 }
 
