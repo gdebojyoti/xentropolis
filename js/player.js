@@ -52,10 +52,16 @@ CPlayer.prototype = {
         this.intersects.globalBlockContainer = this.pointer.intersectObjects(renderer.world.globalBlockContainer.children,true);
         if(this.intersects.globalBlockContainer.length > 0) {
             this.currentSelectedObj = this.intersects.globalBlockContainer[0];
+
+            // mark current block
             this.currentSelectedObj.object.material.opacity = 0.3;
 
+            // if current block is not same as previous block
             if(this.previousSelectedObj === null || this.previousSelectedObj.object.uuid !== this.currentSelectedObj.object.uuid) {
+                // unmark previous block
                 if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
+
+                // store current block in previous block variable
                 this.previousSelectedObj = this.currentSelectedObj
             }
 
@@ -68,6 +74,7 @@ CPlayer.prototype = {
             if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
         }
     },
+    // update position and orientation of crosshair (translucent neon disc :P)
     updateCrosshair: function(intersectedObject) {
         if(intersectedObject === null) {
             this.setCrosshairVisibility(false);
@@ -95,7 +102,7 @@ CPlayer.prototype = {
                 Math.asin(rot.x)
             );
     },
-    createBlock: function(intersectedObject) {
+    createBlock: function() {
         // if nothing is highlighted, exit
         if(this.currentSelectedObj === null || !this.controls.enabled) return;
 
