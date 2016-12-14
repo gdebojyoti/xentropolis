@@ -8,15 +8,34 @@ var type = {
 function Block() {
     this.type = null;
     this.mesh = null;
+    this.cubeSide = 2;
+
+    // return this.init();
 }
 
 Block.prototype = {
-    init: function() {
-        var geom = new THREE.BoxGeometry(5,5,5);
+    // create block
+    init: function(x = this.cubeSide, y = this.cubeSide, z = this.cubeSide) {
+        var ownObject = this;
+
+        var geom = new THREE.BoxGeometry(x, y, z);
         var mat = new THREE.MeshBasicMaterial({
-                color: 0xff0033,
-                wireframe: true
+                color: 0xe67e22,
+                transparent: true
             });
         this.mesh = new THREE.Mesh(geom, mat);
+
+        var textureLoader = new THREE.TextureLoader();
+        textureLoader.load("cube.png", function(tex) {
+            ownObject.mesh.material.map = tex;
+            ownObject.mesh.material.needsUpdate = true;
+            console.log(tex);
+        },
+        // Function called when download progresses
+        function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ) },
+        // Function called when download errors
+        function ( xhr ) { console.log( xhr ) });
+
+        return this.mesh;
     }
 };

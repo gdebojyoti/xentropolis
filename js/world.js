@@ -18,11 +18,7 @@ World.prototype = {
         renderer.scene.add(plane);
 
         // sample cube
-        var cube = new THREE.Mesh(new THREE.BoxGeometry(this.cubeSide, this.cubeSide, this.cubeSide), new THREE.MeshBasicMaterial({
-                color: 0xffeedd,
-                transparent: true,
-                // wireframe: true
-            }));
+        var cube = (new Block()).init();
         cube.position.y = 6;
         cube.position.z = -50;
         this.globalBlockContainer.add(cube);
@@ -30,11 +26,7 @@ World.prototype = {
         renderer.scene.add(this.globalBlockContainer);
     },
     createBlock: function(position) {
-        var cube = new THREE.Mesh(new THREE.BoxGeometry(this.cubeSide, this.cubeSide, this.cubeSide), new THREE.MeshBasicMaterial({
-                color: 0xffeedd,
-                transparent: true,
-                // wireframe: true
-            }));
+        var cube = (new Block()).init();
         cube.position.x = position.x;
         cube.position.y = position.y;
         cube.position.z = position.z;
