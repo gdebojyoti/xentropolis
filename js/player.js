@@ -12,6 +12,7 @@ function CPlayer() {
         canJump: false
     };
 
+    this.crosshairEnabled = true;
     this.crosshair = null;
 
     this.directionRay = null;
@@ -22,30 +23,40 @@ function CPlayer() {
     };
     this.currentSelectedObj = null;
     this.previousSelectedObj = null;
+    this.currentSelectedObjOpacity = 0.75;
 }
 
 CPlayer.prototype = {
     init: function() {
         this.speed = new THREE.Vector3();
         this.directionRay = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+    },
+    setup: function() {
+        this.initCrosshair();
+
+        // first person controls
+        this.controls = new THREE.PointerLockControls( renderer.camera );
+        this.player = this.controls.getObject();
+    },
+    // initialize crosshair
+    initCrosshair: function() {
+        if(!this.isCrosshairEnabled()) return;
 
         // Create the pointer object (cyan ring)
         this.crosshair = new THREE.Mesh(
-            new THREE.CylinderGeometry(1, 1, .2, 10),
-            new THREE.MeshLambertMaterial( { color: 0x00ffff, transparent: true, opacity: 0.7 } )
+            new THREE.CylinderGeometry(.1, .1, .05, 6),
+            new THREE.MeshLambertMaterial( { color: 0xff0000, transparent: true, opacity: 0.8 } )
         );
         this.crosshair.renderOrder = 2;
         this.crosshair.name = "VR Intersect Indicator";
         this.crosshair.position.x = 0;
         this.crosshair.position.y = 0;
         this.crosshair.position.z = 10;
-    },
-    setup: function() {
-        renderer.scene.add(this.crosshair);
 
-        // first person controls
-        this.controls = new THREE.PointerLockControls( renderer.camera );
-        this.player = this.controls.getObject();
+        renderer.scene.add(this.crosshair);
+    },
+    isCrosshairEnabled: function() {
+        return this.crosshairEnabled;
     },
     displayView: function() {
         this.pointer = new THREE.Raycaster( player.player.position, this.controls.getDirection(), 0, 50 );
@@ -54,7 +65,7 @@ CPlayer.prototype = {
             this.currentSelectedObj = this.intersects.globalBlockContainer[0];
 
             // mark current block
-            this.currentSelectedObj.object.material.opacity = 0.3;
+            this.currentSelectedObj.object.material.opacity = this.currentSelectedObjOpacity;
 
             // if current block is not same as previous block
             if(this.previousSelectedObj === null || this.previousSelectedObj.object.uuid !== this.currentSelectedObj.object.uuid) {
@@ -65,11 +76,11 @@ CPlayer.prototype = {
                 this.previousSelectedObj = this.currentSelectedObj
             }
 
-            this.updateCrosshair(this.intersects.globalBlockContainer[0]);
+            if(this.isCrosshairEnabled()) this.updateCrosshair(this.intersects.globalBlockContainer[0]);
         }
         else {
             this.currentSelectedObj = null;
-            this.updateCrosshair(null);
+            if(this.isCrosshairEnabled()) this.updateCrosshair(null);
 
             if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
         }
