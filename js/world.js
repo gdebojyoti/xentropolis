@@ -12,18 +12,25 @@ World.prototype = {
         this.setup();
     },
     setup: function() {
-        var plane = new THREE.Mesh(new THREE.PlaneGeometry(200,200,5), new THREE.MeshBasicMaterial({color: 0xee5522}));
+        this.generateGround();
+
+        // sample cube
+        this.createBlock({x: 0, y: 6, z: -50});
+
+        renderer.scene.add(this.globalBlockContainer);
+    },
+    generateGround: function() {
+        var plane = new THREE.Mesh(new THREE.PlaneGeometry(10000,10000,5), new THREE.MeshBasicMaterial());
         plane.position.y = 0;
         plane.rotation.x = - 90 * Math.PI / 180;
         renderer.scene.add(plane);
-
-        // sample cube
-        var cube = (new Block()).init();
-        cube.position.y = 6;
-        cube.position.z = -50;
-        this.globalBlockContainer.add(cube);
-
-        renderer.scene.add(this.globalBlockContainer);
+        var planeTextureLoader = new THREE.TextureLoader();
+        planeTextureLoader.load("images/grass.jpg", function(tex) {
+            tex.repeat.set(500, 500);
+            tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+            plane.material.map = tex;
+            plane.material.needsUpdate = true;
+        });
     },
     createBlock: function(position) {
         var cube = (new Block()).init();

@@ -14,7 +14,7 @@ CRenderer.prototype = {
     init: function() {
         // initialize scene
         this.scene = new THREE.Scene();
-        // this.scene.fog = new THREE.Fog( 0x555555, 0, 200 );
+        this.scene.fog = new THREE.Fog( 0xcce0ff, 0, 200 );
 
         // initialize camera
         this.camera = new THREE.PerspectiveCamera(this.m_rFOV, settings.width/ settings.height, 0.1, 10000);
@@ -24,7 +24,26 @@ CRenderer.prototype = {
         this.renderer.setSize(settings.width, settings.height);
 
         // add ambient light to scene
-        var light = new THREE.AmbientLight(0xFFFFFF);
+        this.scene.add( new THREE.AmbientLight( 0x666666 ) );
+
+        var light = new THREE.DirectionalLight( 0xdfebff, 1.75 );
+		light.position.set( 50, 200, 100 );
+		light.position.multiplyScalar( 1.3 );
+
+		light.castShadow = true;
+
+		light.shadow.mapSize.width = 1024;
+		light.shadow.mapSize.height = 1024;
+
+		var d = 300;
+
+		light.shadow.camera.left = - d;
+		light.shadow.camera.right = d;
+		light.shadow.camera.top = d;
+		light.shadow.camera.bottom = - d;
+
+		light.shadow.camera.far = 1000;
+
         this.scene.add(light);
 
         this.world = new World();

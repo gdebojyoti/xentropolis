@@ -25,16 +25,20 @@ Block.prototype = {
             });
         this.mesh = new THREE.Mesh(geom, mat);
 
+        this.mesh.castShadow = true;
+
         var textureLoader = new THREE.TextureLoader();
-        textureLoader.load("cube.png", function(tex) {
-            ownObject.mesh.material.map = tex;
-            ownObject.mesh.material.needsUpdate = true;
-            console.log(tex);
-        },
-        // Function called when download progresses
-        function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ) },
-        // Function called when download errors
-        function ( xhr ) { console.log( xhr ) });
+        textureLoader.load(
+                "images/circuit_pattern.png", function(tex) {
+                    ownObject.mesh.material.map = tex;
+                    ownObject.mesh.material.needsUpdate = true;
+                    console.log(tex);
+                },
+                // on progress
+                function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ) },
+                // on error
+                function ( xhr ) { console.log( xhr ) }
+            );
 
         return this.mesh;
     }
