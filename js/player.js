@@ -58,9 +58,11 @@ CPlayer.prototype = {
     isCrosshairEnabled: function() {
         return this.crosshairEnabled;
     },
+    // mark current block, and update player compass
     displayView: function() {
+        // mark the block (set opacity to 'currentSelectedObjOpacity') that the player is currently looking at
         this.pointer = new THREE.Raycaster( player.player.position, this.controls.getDirection(), 0, 50 );
-        this.intersects.globalBlockContainer = this.pointer.intersectObjects(renderer.world.globalBlockContainer.children,true);
+        this.intersects.globalBlockContainer = this.pointer.intersectObjects(renderer.world.globalBlockContainer.children, true);
         if(this.intersects.globalBlockContainer.length > 0) {
             this.currentSelectedObj = this.intersects.globalBlockContainer[0];
 
@@ -84,6 +86,9 @@ CPlayer.prototype = {
 
             if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
         }
+
+        // update compass according to player rotation
+        $(".compass").css("transform", "rotateZ(" + (player.player.rotation.y * 180 / Math.PI - 45) + "deg)"); // allow 45 deg for rotated camera image in png
     },
     // update position and orientation of crosshair (translucent neon disc :P)
     updateCrosshair: function(intersectedObject) {

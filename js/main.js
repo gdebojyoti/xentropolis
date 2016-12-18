@@ -22,14 +22,23 @@ $(function() {
     registerEvents();
     onresize();
 
+    // lock the pointer - invoke requestPointerLock API
     $("#button").on("click", function(e) {
         lockPointer();
         e.stopPropagation();
     });
 
+    // Click to create new block
     $("body").on("click", function() {
         player.createBlock();
-    })
+    });
+
+    // Right click function - pending implementation
+    // TODO: Capture right click event when pointer is locked
+    $("body").on("contextmenu", function(evt) {
+        // console.log("Right click");
+        return false;
+    });
 
     renderLoop();
 })
