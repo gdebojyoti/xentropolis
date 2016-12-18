@@ -40,6 +40,6 @@ button {
     width: 128px;
     height: 128px;
 
-    background: url(../images/compass.png) no-repeat center;
+    background: url(../images/compass-no-ring.png) no-repeat center;
     background-size: contain;
 }
