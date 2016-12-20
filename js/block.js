@@ -32,7 +32,7 @@ Block.prototype = {
                 "images/circuit_pattern.png", function(tex) {
                     ownObject.mesh.material.map = tex;
                     ownObject.mesh.material.needsUpdate = true;
-                    console.log(tex);
+                    console.log("Block texture loaded.");
                 },
                 // on progress
                 function ( xhr ) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ) },

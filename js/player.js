@@ -18,6 +18,8 @@ function CPlayer() {
     this.directionRay = null;
     this.pointer = null;
 
+    this.disruptState = false; // if true, will destroy block; set to true by pressing and holding 'Ctrl' key
+
     this.intersects = {
         globalBlockContainer: null
     };
@@ -118,6 +120,14 @@ CPlayer.prototype = {
                 Math.asin(rot.x)
             );
     },
+    // Left click operation
+    executePrimaryOps: function() {
+        // if 'Ctrl' key is pressed, destroy block
+        if(this.disruptState) this.destroyBlock();
+
+        // else create new block
+        else this.createBlock();
+    },
     createBlock: function() {
         // if nothing is highlighted, exit
         if(this.currentSelectedObj === null || !this.controls.enabled) return;
@@ -159,5 +169,10 @@ CPlayer.prototype = {
         else newBlockCenter[activeAxis] -= renderer.world.cubeSide;
 
         renderer.world.createBlock(newBlockCenter);
+    },
+    destroyBlock: function() {
+        if(this.currentSelectedObj) {
+            renderer.destroyBlock(this.currentSelectedObj.object.id)
+        }
     }
 };

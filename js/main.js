@@ -30,7 +30,7 @@ $(function() {
 
     // Click to create new block
     $("body").on("click", function() {
-        player.createBlock();
+        player.executePrimaryOps();
     });
 
     // Right click function - pending implementation

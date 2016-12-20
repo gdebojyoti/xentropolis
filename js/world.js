@@ -39,5 +39,13 @@ World.prototype = {
         cube.position.z = position.z;
 
         this.globalBlockContainer.add(cube);
+    },
+    // destroy block by id
+    destroyBlock: function(id) {
+        // fetch mesh by id
+        var mesh = this.globalBlockContainer.getObjectById(id);
+
+        // remove mesh from globalBlockContainer
+        this.globalBlockContainer.remove(mesh);
     }
 };

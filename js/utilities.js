@@ -63,6 +63,10 @@ function onKeyDown(event) {
             if (player.movement.canJump === true) player.speed.y += 350;
             player.movement.canJump = false;
             break;
+
+        case 17: // ctrl
+            player.disruptState = true;
+            break;
     }
 }
 
@@ -87,5 +91,8 @@ function onKeyUp(event) {
         case 68: // d
             player.movement.right = false;
             break;
+
+        case 17: // ctrl
+            player.disruptState = false;
     }
 }

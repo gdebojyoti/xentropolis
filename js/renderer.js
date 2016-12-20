@@ -100,5 +100,8 @@ CRenderer.prototype = {
         this.camera.aspect = settings.width/ settings.height;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(settings.width, settings.height);
+    },
+    destroyBlock: function(id) {
+        this.world.destroyBlock(id);
     }
 };
