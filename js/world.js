@@ -2,7 +2,7 @@
 
 function World() {
     this.globalBlockContainer = null;
-    this.cubeSide = 2;
+    this.cubeSide = 4;
 }
 
 World.prototype = {
@@ -15,7 +15,7 @@ World.prototype = {
         this.generateGround();
 
         // sample cube
-        this.createBlock({x: 0, y: 6, z: -50});
+        this.createBlock({x: 0, y: this.cubeSide/ 2, z: -50});
 
         renderer.scene.add(this.globalBlockContainer);
     },

@@ -8,7 +8,7 @@ var type = {
 function Block() {
     this.type = null;
     this.mesh = null;
-    this.cubeSide = 2;
+    this.cubeSide = 4;
 
     // return this.init();
 }

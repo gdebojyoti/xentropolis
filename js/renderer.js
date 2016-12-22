@@ -57,6 +57,7 @@ CRenderer.prototype = {
         this.renderer.render(this.scene, this.camera);
 
         player.displayView();
+        player.checkForCollisions();
 
         // player.directionRay.ray.origin.copy( player.player.position );
 		// player.directionRay.ray.origin.y -= 10;
@@ -73,8 +74,13 @@ CRenderer.prototype = {
             if ( player.movement.forward ) player.speed.z -= 400.0 * deltaTime;
             if ( player.movement.backward ) player.speed.z += 400.0 * deltaTime;
 
-            if ( player.movement.left ) player.speed.x -= 400.0 * deltaTime;
+            if ( player.movement.left) player.speed.x -= 400.0 * deltaTime;
             if ( player.movement.right ) player.speed.x += 400.0 * deltaTime;
+
+            // Block movement (set speed to 0) on collision detection
+            if ( player.collision.forward && player.speed.z < 0 ) player.speed.z = 0;
+            if ( player.collision.left && player.speed.x < 0 ) player.speed.x = 0;
+            if ( player.collision.right && player.speed.x > 0 ) player.speed.x = 0;
 
             // if ( isOnObject === true ) {
             //     player.speed.y = Math.max( 0, player.speed.y );

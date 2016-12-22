@@ -11,6 +11,14 @@ function CPlayer() {
         right: false,
         canJump: false
     };
+    this.collision = {
+        forward: false,
+        backward: false,
+        left: false,
+        right: false,
+        up: false,
+        down: false
+    };
 
     this.crosshairEnabled = true;
     this.crosshair = null;
@@ -63,7 +71,7 @@ CPlayer.prototype = {
     // mark current block, and update player compass
     displayView: function() {
         // mark the block (set opacity to 'currentSelectedObjOpacity') that the player is currently looking at
-        this.pointer = new THREE.Raycaster( player.player.position, this.controls.getDirection(), 0, 50 );
+        this.pointer = new THREE.Raycaster( this.player.position, this.controls.getDirection(), 0, 50 );
         this.intersects.globalBlockContainer = this.pointer.intersectObjects(renderer.world.globalBlockContainer.children, true);
         if(this.intersects.globalBlockContainer.length > 0) {
             this.currentSelectedObj = this.intersects.globalBlockContainer[0];
@@ -90,7 +98,29 @@ CPlayer.prototype = {
         }
 
         // update compass according to player rotation
-        $(".compass").css("transform", "rotateZ(" + (player.player.rotation.y * 180 / Math.PI - 45) + "deg)"); // allow 45 deg for rotated camera image in png
+        // allow 45 deg for rotated camera image in png
+        $(".compass").css("transform", "rotateZ(" + (this.player.rotation.y * 180 / Math.PI - 45) + "deg)");
+    },
+    checkForCollisions: function() {
+        var front = new THREE.Vector3(this.controls.getDirection().x, 0, this.controls.getDirection().z).normalize();
+        var side = new THREE.Vector3(this.controls.getDirection().x, 0, this.controls.getDirection().z).normalize()
+                .applyAxisAngle(new THREE.Vector3( 0, 1, 0 ), Math.PI / 2);
+
+        // emit directional rays
+        var pointer = new THREE.Raycaster(new THREE.Vector3(this.player.position.x, 1, this.player.position.z), front, 0, 5);
+        // for each directional ray, check for collision at a distance X
+        var collidingWith = pointer.intersectObjects(renderer.world.globalBlockContainer.children, true);
+        // if collision occurs, set movement speed in that direction to 0
+        if(collidingWith.length > 0) this.collision.forward = true;
+        else this.collision.forward = false;
+
+        var pointer = new THREE.Raycaster(new THREE.Vector3(this.player.position.x, 1, this.player.position.z), side, 0, 5);
+        var collidingWith = pointer.intersectObjects(renderer.world.globalBlockContainer.children, true);
+        if(collidingWith.length > 0) {
+            this.collision.left = true;
+            console.log("hit");
+        }
+        else this.collision.left = false;
     },
     // update position and orientation of crosshair (translucent neon disc :P)
     updateCrosshair: function(intersectedObject) {
