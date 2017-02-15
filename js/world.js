@@ -2,7 +2,7 @@
 
 function World() {
     this.globalBlockContainer = null;
-    this.cubeSide = 2;
+    this.cubeSide = 4;
 }
 
 World.prototype = {
@@ -15,7 +15,7 @@ World.prototype = {
         this.generateGround();
 
         // sample cube
-        this.createBlock({x: 0, y: 6, z: -50});
+        this.createBlock({x: 0, y: this.cubeSide/ 2, z: -50});
 
         renderer.scene.add(this.globalBlockContainer);
     },
@@ -39,5 +39,13 @@ World.prototype = {
         cube.position.z = position.z;
 
         this.globalBlockContainer.add(cube);
+    },
+    // destroy block by id
+    destroyBlock: function(id) {
+        // fetch mesh by id
+        var mesh = this.globalBlockContainer.getObjectById(id);
+
+        // remove mesh from globalBlockContainer
+        this.globalBlockContainer.remove(mesh);
     }
 };
