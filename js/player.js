@@ -75,7 +75,7 @@ CPlayer.prototype = {
                 if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
 
                 // store current block in previous block variable
-                this.previousSelectedObj = this.currentSelectedObj
+                this.previousSelectedObj = this.currentSelectedObj;
             }
 
             if(this.isCrosshairEnabled()) this.updateCrosshair(this.intersects.globalBlockContainer[0]);
@@ -87,8 +87,11 @@ CPlayer.prototype = {
             if(this.previousSelectedObj !== null) this.previousSelectedObj.object.material.opacity = 1;
         }
 
-        // update compass according to player rotation
-        $(".compass").css("transform", "rotateZ(" + (player.player.rotation.y * 180 / Math.PI - 45) + "deg)"); // allow 45 deg for rotated camera image in png
+        this.updateCompass(player.player.rotation.y);
+    },
+    // update compass according to player rotation
+    updateCompass: function(angle) {
+        $(".compass").css("transform", "rotateZ(" + (angle * 180 / Math.PI - 45) + "deg)"); // allow 45 deg for rotated camera image in png
     },
     // update position and orientation of crosshair (translucent neon disc :P)
     updateCrosshair: function(intersectedObject) {
