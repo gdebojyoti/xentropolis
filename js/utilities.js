@@ -96,3 +96,26 @@ function onKeyUp(event) {
             player.disruptState = false;
     }
 }
+
+// get screen coordinates of 3d points, create on-screen markers for them
+function updateUiMarkers() {
+    var vector = new THREE.Vector3();
+    // TODO: Parameterize positions of 3d points
+    vector.set(
+        renderer.world.globalBlockContainer.children[0].position.x,
+        renderer.world.globalBlockContainer.children[0].position.y,
+        renderer.world.globalBlockContainer.children[0].position.z
+    );
+
+    // map to normalized device coordinate (NDC) space
+    vector.project( renderer.camera );
+
+    // map to 2D screen space
+    vector.x = Math.round( (   vector.x + 1 ) * htmlCanvas.width  / 2 );
+    vector.y = Math.round( ( - vector.y + 1 ) * htmlCanvas.height / 2 );
+    vector.z = 0;
+
+    $("[id=marker]").css({
+        'transform': "translate(" + vector.x + "px," + vector.y + "px)"
+    });
+}

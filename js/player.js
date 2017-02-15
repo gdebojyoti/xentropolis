@@ -68,7 +68,7 @@ CPlayer.prototype = {
     isCrosshairEnabled: function() {
         return this.crosshairEnabled;
     },
-    // mark current block, and update player compass
+    // mark current block, update player compass, update UI markers
     displayView: function() {
         // mark the block (set opacity to 'currentSelectedObjOpacity') that the player is currently looking at
         this.pointer = new THREE.Raycaster( this.player.position, this.controls.getDirection(), 0, 50 );
@@ -98,6 +98,8 @@ CPlayer.prototype = {
         }
 
         this.updateCompass(player.player.rotation.y);
+
+        updateUiMarkers();
     },
     // update compass according to player rotation
     updateCompass: function(angle) {

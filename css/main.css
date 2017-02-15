@@ -43,3 +43,34 @@ button {
     background: url(../images/compass-no-ring.png) no-repeat center;
     background-size: contain;
 }
+
+.vr-ui-pane {
+    position: fixed;
+    top: 0;
+
+    width: 50%;
+    height: 100%;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+.vr-ui-pane.left { left: 0 }
+.vr-ui-pane.right { right: 0 }
+
+.marker {
+    position: absolute;
+    left: -16px;
+    top: -16px;
+
+    width: 32px;
+    height: 32px;
+
+    background-image: url(../images/marker.png);
+
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+/* Utility classes */
+
+.full-width { width: 100% }
