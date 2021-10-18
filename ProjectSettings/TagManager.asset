@@ -56,6 +56,9 @@ TagManager:
   - name: Instances
     uniqueID: 2530323139
     locked: 0
+  - name: Player
+    uniqueID: 3286656647
+    locked: 0
   - name: Front1
     uniqueID: 1914368241
     locked: 0
@@ -64,7 +67,4 @@ TagManager:
     locked: 0
   - name: Collisions
     uniqueID: 1428496981
-    locked: 0
-  - name: Player
-    uniqueID: 3286656647
     locked: 0
