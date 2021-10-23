@@ -4414,14 +4414,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sunflower
       objectReference: {fileID: 0}
-    - target: {fileID: 2270299500898956717, guid: 543d43d3943e3c64696166cfd2b30306, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2270299500898956717, guid: 543d43d3943e3c64696166cfd2b30306, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2270299500898956719, guid: 543d43d3943e3c64696166cfd2b30306, type: 3}
       propertyPath: m_RootOrder
       value: 0
