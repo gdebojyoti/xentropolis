@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17ace55064b22a48aeed44bd684f304, type: 3}
-  m_Name: GameInventory
+  m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: eb820c710001b4b4994d9b2da25c7de9, type: 2}
-  - {fileID: 11400000, guid: a4ee26db3d39d1f469d5faa7d35e7b82, type: 2}
+  entries:
+  - item: {fileID: 11400000, guid: eb820c710001b4b4994d9b2da25c7de9, type: 2}
+    quantity: 2

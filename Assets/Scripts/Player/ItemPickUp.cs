@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class ItemPickUp : MonoBehaviour {
-  public SO_Inventory gameInventory;
+  public SO_GameInventory gameInventory;
+  public SO_Inventory inventory;
 
   private void OnTriggerEnter2D(Collider2D other) {
     Item itemCollidedWith = other.GetComponent<Item>();
@@ -21,8 +22,9 @@ public class ItemPickUp : MonoBehaviour {
     }
 
     if (itemDetails != null) {
-      Debug.Log("Name: " + itemDetails.itemName);
-      Debug.Log("Desc: " + itemDetails.itemDescription);
+      Debug.Log("Name: " + itemDetails.itemName + "; Desc: " + itemDetails.itemDescription);
+
+      inventory.AddToInventory(itemDetails, 1);
     } else {
       Debug.Log("Unknown object!");
     }

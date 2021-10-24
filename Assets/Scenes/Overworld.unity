@@ -2389,7 +2389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3376722, y: 0.9200002, z: -10}
+  m_LocalPosition: {x: 1.3375659, y: 0.9200002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1664039403}
@@ -3532,29 +3532,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &1257420455 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 160930645841143479, guid: acd2509fed4b93f47be0fa40a22430df, type: 3}
-  m_PrefabInstance: {fileID: 160930644588187664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1257420456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 160930645841143480, guid: acd2509fed4b93f47be0fa40a22430df, type: 3}
   m_PrefabInstance: {fileID: 160930644588187664}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1257420461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257420455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7c24025eabf8c4c8b2b20f7cb49c4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameInventory: {fileID: 11400000, guid: dedc201607fb9f347b03b5f0e1c06179, type: 2}
 --- !u!1 &1308557651
 GameObject:
   m_ObjectHideFlags: 3
@@ -3798,7 +3780,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7776718, y: 1}
+    m_SensorSize: {x: 1.7775656, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3815,7 +3797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782417637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3376722, y: 0.9200002, z: -10}
+  m_LocalPosition: {x: 1.3375659, y: 0.9200002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1308557652}
@@ -4397,10 +4379,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 160930645841143482, guid: acd2509fed4b93f47be0fa40a22430df, type: 3}
-      propertyPath: gameInventory
-      value: 
-      objectReference: {fileID: 11400000, guid: dedc201607fb9f347b03b5f0e1c06179, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acd2509fed4b93f47be0fa40a22430df, type: 3}
 --- !u!1001 &2270299502494173650
