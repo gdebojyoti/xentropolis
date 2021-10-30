@@ -47,15 +47,13 @@ public class Inventory : MonoBehaviour {
     return false;
   }
 
+  // update the inventory UI (eg: bar at the bottom of the screen)
   private void _UpdateUi () {
     for (var i = 0; i < entries.Count; i++) {
       InventoryEntry entry = entries[i];
-      slots[0].image.sprite = entry.item.itemIcon;
-      slots[0].gui.text = entry.quantity.ToString(); // count
+      slots[i].image.sprite = entry.item.itemIcon; // item icon
+      slots[i].gui.text = entry.quantity.ToString(); // item count
       Debug.Log("Item details: " + entry.item.itemName + " " + entry.quantity);
     }
-    // foreach (InventoryEntry entry in entries) {
-    //   Debug.Log("Item details: " + entry.item.itemName + " " + entry.quantity);
-    // }
   }
 }
