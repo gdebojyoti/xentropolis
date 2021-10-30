@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Sunflower
   itemType: 1
   itemDescription: A burning Sunflower
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 730e572c78cf0244ca0db36bb8f3af7f, type: 3}

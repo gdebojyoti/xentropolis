@@ -204,4 +204,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameInventory: {fileID: 11400000, guid: 78f42839590ab174fb1f76c35d65af6f, type: 2}
-  inventory: {fileID: 11400000, guid: 92fe35c5534bc9f4a8bc5c106ea797ad, type: 2}
+  inventory: {fileID: 0}

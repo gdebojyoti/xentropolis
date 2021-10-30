@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemPickUp : MonoBehaviour {
   public SO_GameInventory gameInventory;
-  public SO_Inventory inventory;
+  public Inventory inventory;
 
   private void OnTriggerEnter2D(Collider2D other) {
     Item itemCollidedWith = other.GetComponent<Item>();

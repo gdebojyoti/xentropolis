@@ -3,31 +3,32 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "Inventory", menuName = "Collections/Inventory")]
-public class SO_Inventory : ScriptableObject {
+public class Inventory : MonoBehaviour {
   [SerializeField] public List<InventoryEntry> entries = new List<InventoryEntry>();
+  public UiInventorySlot[] slots;
 
   // add a certain quanity of a particular item to inventory
   public void AddToInventory (SO_Item newItem, int quantity) {
-    bool isAdded = false;
     Debug.Log("count = " + entries.Count);
     
+    // loop through all items in this inventory
     foreach (InventoryEntry entry in entries) {
+      // if item already exists, increment its quantity by `quantity`
       if (newItem == entry.item) {
         entry.quantity += quantity;
         Debug.Log("cycle 1" + entry.quantity);
-        _PrintInventory();
+        _UpdateUi();
         return;
       }
       Debug.Log("cycle 2");
     }
 
-    if (!isAdded) {
-      InventoryEntry newEntry = new InventoryEntry(newItem, quantity);
-      entries.Add(newEntry);
-    }
+    // reaching here means that item to be added is missing in this inventory
+    // hence, initiate new entry and set quantity
+    InventoryEntry newEntry = new InventoryEntry(newItem, quantity);
+    entries.Add(newEntry);
 
-    _PrintInventory();
+    _UpdateUi();
   }
 
   // remove a certain quantity of a certain item from inventory;
@@ -46,9 +47,15 @@ public class SO_Inventory : ScriptableObject {
     return false;
   }
 
-  private void _PrintInventory () {
-    foreach (InventoryEntry entry in entries) {
+  private void _UpdateUi () {
+    for (var i = 0; i < entries.Count; i++) {
+      InventoryEntry entry = entries[i];
+      slots[0].image.sprite = entry.item.itemIcon;
+      slots[0].gui.text = entry.quantity.ToString(); // count
       Debug.Log("Item details: " + entry.item.itemName + " " + entry.quantity);
     }
+    // foreach (InventoryEntry entry in entries) {
+    //   Debug.Log("Item details: " + entry.item.itemName + " " + entry.quantity);
+    // }
   }
 }
