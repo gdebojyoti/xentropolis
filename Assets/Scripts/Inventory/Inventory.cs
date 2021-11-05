@@ -23,9 +23,13 @@ public class Inventory : MonoBehaviour {
       Debug.Log("cycle 2");
     }
 
+    // get first free slot index
+    int freeSlotIndex = System.Array.FindIndex(slots, slot => slot.item == null);
+
     // reaching here means that item to be added is missing in this inventory
     // hence, initiate new entry and set quantity
-    InventoryEntry newEntry = new InventoryEntry(newItem, quantity);
+    // TODO: handle out of bounds cases (i.e., freeSlotIndex = -1)
+    InventoryEntry newEntry = new InventoryEntry(newItem, quantity, freeSlotIndex);
     entries.Add(newEntry);
 
     _UpdateUi();
@@ -33,13 +37,17 @@ public class Inventory : MonoBehaviour {
 
   // remove a certain quantity of a certain item from inventory;
   // return true if successful, false for failure
-  public bool RemoveFromInventory (SO_Item newItem, int quantity) {
+  public bool RemoveFromInventory (int index, int quantity) {
     foreach (InventoryEntry entry in entries) {
-      if (newItem == entry.item) {
+      if (index == entry.slotIndex) {
         if (entry.quantity < quantity) {
           return false;
         }
         entry.quantity -= quantity;
+        if (entry.quantity == 0) {
+          entries.Remove(entry);
+        }
+        _UpdateUi();
         return true;
       }
     }
@@ -51,9 +59,11 @@ public class Inventory : MonoBehaviour {
   private void _UpdateUi () {
     for (var i = 0; i < entries.Count; i++) {
       InventoryEntry entry = entries[i];
-      slots[i].image.sprite = entry.item.itemIcon; // item icon
-      slots[i].gui.text = entry.quantity.ToString(); // item count
-      Debug.Log("Item details: " + entry.item.itemName + " " + entry.quantity);
+      slots[i].UpdateUi(entry);
+    }
+    // clear inventory slots for the other values
+    for (var i = entries.Count; i < 6; i++) {
+      slots[i].ResetUi();
     }
   }
 }

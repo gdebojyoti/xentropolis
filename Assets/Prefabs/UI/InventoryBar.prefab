@@ -102,6 +102,7 @@ MonoBehaviour:
   - {fileID: 8661321665216654228}
   - {fileID: 8661321666075482434}
   - {fileID: 8661321665202675179}
+  draggedItem: {fileID: 3216815378254372122, guid: f72ea469bd19e1d4196b8c1cfe64fa4f, type: 3}
 --- !u!1001 &1142740214901680328
 PrefabInstance:
   m_ObjectHideFlags: 0
