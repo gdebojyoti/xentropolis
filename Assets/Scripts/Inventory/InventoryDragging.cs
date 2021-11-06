@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class InventoryDragging : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
   public GameObject draggedItem;
   public GameObject itemPrefab;
+  public Inventory inventory; // inventory which this slot belongs to
   [SerializeField] private int dragOriginIndex;
   [SerializeField] private int dragDestinationIndex;
   private GameObject itemsParent;
@@ -39,9 +40,18 @@ public class InventoryDragging : MonoBehaviour, IBeginDragHandler, IEndDragHandl
       dragDestinationIndex = _GetSlotIndex(eventData);
       draggedItem.SetActive(false);
 
+      // exit if invalid GO is selected
+      if (dragDestinationIndex == -1) {
+        return;
+      }
+
       if (dragDestinationIndex == -2) {
         _DropItemInWorld();
+        return;
       }
+
+      // if code reaches here, dragDestinationIndex >= 0; trigger swap
+      inventory.SwapItems(dragOriginIndex, dragDestinationIndex);
     }
   #endregion
 
@@ -71,7 +81,7 @@ public class InventoryDragging : MonoBehaviour, IBeginDragHandler, IEndDragHandl
   }
 
   private int _GetSlotIndex (PointerEventData eventData) {
-    // return -1 if no GO is found
+    // return -2 if no GO is found
     GameObject slotGo = eventData.pointerCurrentRaycast.gameObject;
     if (slotGo == null) {
       Debug.Log("no go found");

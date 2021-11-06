@@ -55,15 +55,34 @@ public class Inventory : MonoBehaviour {
     return false;
   }
 
+  // swap items in 2 positions
+  public void SwapItems (int originIndex, int destinationIndex) {
+    // ignore if both values are same
+    if (originIndex == destinationIndex) {
+      return;
+    }
+    
+    foreach (InventoryEntry entry in entries) {
+      if (entry.slotIndex == originIndex) {
+        entry.slotIndex = destinationIndex;
+      } else if (entry.slotIndex == destinationIndex) {
+        entry.slotIndex = originIndex;
+      }
+    }
+    _UpdateUi();
+  }
+
   // update the inventory UI (eg: bar at the bottom of the screen)
   private void _UpdateUi () {
+    // clear all inventory slots
+    for (var i = 0; i < slots.Length; i++) {
+      slots[i].ResetUi();
+    }
+
+    // check each item's slot index, and update the corresponding slot's UI
     for (var i = 0; i < entries.Count; i++) {
       InventoryEntry entry = entries[i];
-      slots[i].UpdateUi(entry);
-    }
-    // clear inventory slots for the other values
-    for (var i = entries.Count; i < 6; i++) {
-      slots[i].ResetUi();
+      slots[entry.slotIndex].UpdateUi(entry);
     }
   }
 }
